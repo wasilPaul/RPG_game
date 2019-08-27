@@ -38,6 +38,11 @@ class Person:
             self.hp = 0
         return self.hp
 
+    def heal(self, dmg):
+        self.hp += dmg
+        if self.hp > self.max_hp:
+            self.hp = self.max_hp
+
     def get_hp(self):
         return self.hp
 
@@ -53,7 +58,7 @@ class Person:
     def reduce_mp(self, cost):
         self.mp -= cost
 
-    def spell_name(self, i):
+    def get_spell_name(self, i):
         return self.magic[i]["name"]
 
     def get_spell_mp_cost(self, i):
@@ -61,14 +66,14 @@ class Person:
 
     def choose_action(self):
         i = 1
-        print("Actions")
+        print(BColors.OK_BLUE + BColors.BOLD + "Actions" + BColors.END_C)
         for item in self.actions:
             print(str(i) + ":", item)
             i += 1
 
     def choose_magic(self):
         i = 1
-        print("Magic")
+        print(BColors.OK_BLUE + BColors.BOLD + "Magic" + BColors.END_C)
         for spell in self.magic:
             print(str(i) + ":", spell["name"], "(cost: ", str(spell["mp"]), ")")
             i += 1
