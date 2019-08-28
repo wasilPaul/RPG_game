@@ -18,6 +18,7 @@ resurrection = Spell("Resurrection", 18, 200, 'white')
 potion = Item("Potion", "potion", "Heals 50 HP", 50)
 high_potion = Item("High potion", "potion", "Heals 100 HP", 100)
 super_potion = Item("Super potion", "potion", "Heals 200 HP", 200)
+elixir = Item("Elixir", "elixir", "Fully restores HP/MP of one party member", 999)
 
 # Instantiate people
 player = Person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, resurrection])
