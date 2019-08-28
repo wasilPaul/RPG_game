@@ -1,15 +1,6 @@
 import random
-
-
-class BColors:
-    HEADER = '\033[95m'
-    OK_BLUE = '\033[94m'
-    OK_GREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    END_C = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+from .colors import BColors
+from .magic import Spell
 
 
 class Person:
@@ -26,11 +17,6 @@ class Person:
 
     def generate_damage(self):
         return random.randrange(self.atk_l, self.atk_h)
-
-    def generate_spell_damage(self, i):
-        mg_l = self.magic[i]['dmg'] - 5
-        mg_h = self.magic[i]['dmg'] + 5
-        return random.randrange(mg_l, mg_h)
 
     def take_damage(self, dmg):
         self.hp -= dmg
@@ -58,12 +44,6 @@ class Person:
     def reduce_mp(self, cost):
         self.mp -= cost
 
-    def get_spell_name(self, i):
-        return self.magic[i]["name"]
-
-    def get_spell_mp_cost(self, i):
-        return self.magic[i]["cost"]
-
     def choose_action(self):
         i = 1
         print(BColors.OK_BLUE + BColors.BOLD + "Actions" + BColors.END_C)
@@ -75,5 +55,5 @@ class Person:
         i = 1
         print(BColors.OK_BLUE + BColors.BOLD + "Magic" + BColors.END_C)
         for spell in self.magic:
-            print(str(i) + ":", spell["name"], "(cost: ", str(spell["cost"]), ")")
+            print(str(i) + ":", spell.name, "(cost: ", str(spell.cost), ")")
             i += 1
