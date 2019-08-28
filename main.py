@@ -1,20 +1,26 @@
 from classes.colors import BColors
-from classes.game import Person
+from classes.character import Person
 from classes.magic import Spell
+from classes.inventory import Item
 
-# Create Black Magic
+# Create Black Magic (offence)
 fire = Spell("Fire", 10, 100, "black")
 thunder = Spell("Thunder", 10, 100, "black")
 blizzard = Spell("Blizzard", 10, 100, "black")
 meteor = Spell("Meteor", 20, 200, "black")
 quake = Spell("Quake", 14, 140, "black")
 
-# Create Whit Magic
+# Create White Magic (heal/defence)
 cure = Spell("Cure", 12, 120, 'white')
-cura = Spell("Cura", 18, 200, 'white')
+resurrection = Spell("Resurrection", 18, 200, 'white')
+
+# Create Item
+potion = Item("Potion", "potion", "Heals 50 HP", 50)
+high_potion = Item("High potion", "potion", "Heals 100 HP", 100)
+super_potion = Item("Super potion", "potion", "Heals 200 HP", 200)
 
 # Instantiate people
-player = Person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura])
+player = Person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, resurrection])
 enemy = Person(1200, 65, 45, 25, [])
 
 running = True
