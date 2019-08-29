@@ -77,10 +77,11 @@ while running:
             continue
 
         item = player.items[item_choice]['item']
+        player.items[item_choice]['quantity'] -= 1
 
         if item.kind == 'potion':
             player.heal(item.prop)
-            print(BColors.OK_GREEN + '\n' + item.name + ' increase heals for '+ str(item.prop) + ' HP' + BColors.END_C)
+            print(BColors.OK_GREEN + '\n' + item.name + ' increase heals for ' + str(item.prop) + ' HP' + BColors.END_C)
 
         elif item.kind == 'elixir':
             player.mp = player.max_mp
