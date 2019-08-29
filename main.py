@@ -77,6 +77,11 @@ while running:
             continue
 
         item = player.items[item_choice]['item']
+
+        if player.items[item_choice]['quantity'] == 0:
+            print(BColors.FAIL + '\n' + 'None ' + item.name + " left ... " + BColors.END_C)
+            continue
+
         player.items[item_choice]['quantity'] -= 1
 
         if item.kind == 'potion':
