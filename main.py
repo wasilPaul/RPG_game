@@ -81,9 +81,13 @@ while running:
             print(BColors.OK_GREEN + '\n' + item.name + ' increase heals for ', str(item.prop) + 'HP' + BColors.END_C)
 
         elif item.kind == 'elixir':
-            continue
-        elif item.kind == "grenade":
+            player.mp = player.max_mp
+            player.hp = player.max_hp
+            print(BColors.OK_GREEN + '\n' + item.name + ' fully restores HP/MP' + BColors.END_C)
+        elif item.kind == "attack":
             enemy.take_damage(item.prop)
+            print(BColors.WARNING + '\n' + item.name + ' enemy takes ',
+                  str(item.prop) + ' damage points.' + BColors.END_C)
 
     enemy_choice = 1
     enemy_dmg = enemy.generate_damage()
