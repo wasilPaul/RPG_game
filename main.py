@@ -13,16 +13,20 @@ quake = Spell("Quake", 14, 140, "black")
 # Create White Magic (heal/defence)
 cure = Spell("Cure", 12, 120, 'white')
 resurrection = Spell("Resurrection", 18, 200, 'white')
+player_spells = [fire, thunder, blizzard, meteor, cure, resurrection]
 
 # Create Item
 potion = Item("Potion", "potion", "Heals 50 HP", 50)
 high_potion = Item("High potion", "potion", "Heals 100 HP", 100)
 super_potion = Item("Super potion", "potion", "Heals 200 HP", 200)
-elixir = Item("Elixir", "elixir", "Fully restores HP/MP of one party member", 999)
+elixir = Item("Elixir", "elixir", "Fully restores HP/MP of one party member", 9999)
+mega_elixir = Item("MegaElixir", 'elixir', "Fully restores party's HP/MP", 9999)
+grenade = Item("Grenade", 'attack', 'Deals 500 damage', 500)
+player_items = [potion, high_potion, super_potion, elixir, mega_elixir, grenade]
 
 # Instantiate people
-player = Person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, resurrection])
-enemy = Person(1200, 65, 45, 25, [])
+player = Person(460, 65, 60, 34, player_spells, player_items)
+enemy = Person(1200, 65, 45, 25, [], [])
 
 running = True
 
@@ -33,6 +37,8 @@ while running:
     player.choose_action()
     choice = input("Choose action: ")
     index = int(choice) - 1
+    if index == -1:
+        continue
 
     if index == 0:
         dmg = player.generate_damage()
@@ -42,6 +48,8 @@ while running:
     elif index == 1:
         player.choose_magic()
         magic_choice = int(input('Choice magic: ')) - 1
+        if magic_choice == -1:
+            continue
         spell = player.magic[magic_choice]
         magic_dmg = spell.generate_damage()
         current_mp = player.get_mp()
@@ -60,6 +68,22 @@ while running:
             enemy.take_damage(magic_dmg)
             print(BColors.OK_BLUE + " \n" + spell.name + " deals ", str(magic_dmg), "damage points of magic.\n",
                   BColors.END_C)
+    elif index == 2:
+        player.choose_items()
+        item_choice = int(input('Choice item: ')) - 1
+        if item_choice == -1:
+            continue
+
+        item = player.items[item_choice]
+
+        if item.kind == 'potion':
+            player.heal(item.prop)
+            print(BColors.OK_GREEN + '\n' + item.name + ' increase heals for ', str(item.prop) + 'HP' + BColors.END_C)
+
+        elif item.kind == 'elixir':
+            continue
+        elif item.kind == "grenade":
+            enemy.take_damage(item.prop)
 
     enemy_choice = 1
     enemy_dmg = enemy.generate_damage()
