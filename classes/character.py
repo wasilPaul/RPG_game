@@ -4,7 +4,8 @@ from .magic import Spell
 
 
 class Person:
-    def __init__(self, hp, mp, atk, df, magic, items):
+    def __init__(self, name, hp, mp, atk, df, magic, items):
+        self.name = name
         self.max_hp = hp
         self.hp = hp
         self.max_mp = mp
