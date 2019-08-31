@@ -48,7 +48,8 @@ class Person:
 
     def choose_action(self):
         i = 1
-        print('\n', BColors.OK_BLUE + BColors.BOLD + "ACTIONS:" + BColors.END_C)
+        print(BColors.BOLD + self.name + BColors.END_C)
+        print(BColors.OK_BLUE + BColors.BOLD + "ACTIONS:" + BColors.END_C)
         for item in self.actions:
             print(" " * 3, str(i) + ". ", item)
             i += 1
@@ -67,3 +68,9 @@ class Person:
             print(" " * 3, str(i) + '. ' + item['item'].name, ": ",
                   item['item'].description + " (x " + str(item['quantity']) + ")")
             i += 1
+
+    def get_stats(self):
+        print(BColors.BOLD + self.name + ": " + str(self.hp) + "/" + str(
+            self.max_hp) + BColors.OK_GREEN + " |" + "█" * 25 + "| " + BColors.END_C + BColors.BOLD + str(
+            self.mp) + "/" + str(
+            self.max_mp) + BColors.OK_BLUE + " |" + "█" * 10 + "|" + BColors.END_C)
