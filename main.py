@@ -32,7 +32,7 @@ player2 = Person("Kira", 460, 65, 100, 50, player_spells, player_items)
 player3 = Person("Xio-Xi-Xen", 460, 80, 70, 80, player_spells, player_items)
 players = [player1, player2, player3]
 
-enemy = Person("Brutal", 1200, 65, 45, 25, [], [])
+enemy = Person("Brutal", 2200, 65, 150, 25, [], [])
 
 running = True
 
