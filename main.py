@@ -54,7 +54,7 @@ while running:
         if index == 0:
             dmg = player.generate_damage()
             enemy.take_damage(int(dmg))
-            print('You attack for ', dmg, ' points of damage.')
+            print('\nYou attack for ', dmg, ' points of damage.')
 
         elif index == 1:
             player.choose_magic()
