@@ -70,7 +70,47 @@ class Person:
             i += 1
 
     def get_stats(self):
-        print(BColors.BOLD + self.name + ": " + str(self.hp) + "/" + str(
-            self.max_hp) + BColors.OK_GREEN + " |" + "█" * 25 + "| " + BColors.END_C + BColors.BOLD + str(
-            self.mp) + "/" + str(
-            self.max_mp) + BColors.OK_BLUE + " |" + "█" * 10 + "|" + BColors.END_C)
+        hp_bar_length = 25
+        hp_bar = ''
+        hp_bar_ticks = self.hp / self.max_hp * 100 / 4
+
+        mp_bar_length = 10
+        mp_bar = ''
+        mp_bar_ticks = self.mp / self.max_mp * 100 / 10
+
+        while hp_bar_ticks > 0:
+            hp_bar += "█"
+            hp_bar_ticks -= 1
+
+        while len(hp_bar) < hp_bar_length:
+            hp_bar += ' '
+
+        while mp_bar_ticks > 0:
+            mp_bar += "█"
+            mp_bar_ticks -= 1
+
+        while len(mp_bar) < mp_bar_length:
+            mp_bar += " "
+
+        hp_quantity = str(self.hp) + "/" + str(self.max_hp)
+        current_hp = ""
+        if len(hp_quantity) < 10:
+            decrease = 10 - len(hp_quantity)
+            current_hp = decrease * " " + hp_quantity
+
+        mp_quantity = str(self.mp) + "/" + str(self.max_mp)
+        current_mp = ""
+        if len(mp_quantity) < 10:
+            decrease = 10 - len(mp_quantity)
+            current_mp = decrease * " " + mp_quantity
+
+        if len(self.name) < 10:
+            decrease = 10 - len(self.name)
+            name_section = self.name + decrease * " "
+        elif len(self.name) > 10:
+            name_section = self.name[0:7] + "..."
+        else:
+            name_section = self.name
+
+        print(
+            BColors.BOLD + name_section + " : " + current_hp + BColors.OK_GREEN + " |" + hp_bar + "| " + BColors.END_C + BColors.BOLD + current_mp + BColors.OK_BLUE + " |" + mp_bar + "|" + BColors.END_C)
