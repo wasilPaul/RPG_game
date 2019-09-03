@@ -20,7 +20,7 @@ potion = Item("Potion", "potion", "Heals 50 HP", 50)
 high_potion = Item("High potion", "potion", "Heals 100 HP", 100)
 super_potion = Item("Super potion", "potion", "Heals 200 HP", 200)
 elixir = Item("Elixir", "elixir", "Fully restores HP/MP of one party member", 9999)
-mega_elixir = Item("MegaElixir", 'elixir', "Fully restores party's HP/MP", 9999)
+mega_elixir = Item("MegaElixir", 'elixir', "All team fully restores party's HP/MP", 9999)
 grenade = Item("Grenade", 'attack', 'Deals 500 damage', 500)
 player_items = [{"item": potion, "quantity": 10}, {"item": high_potion, "quantity": 5},
                 {"item": super_potion, "quantity": 1}, {"item": elixir, "quantity": 1},
@@ -99,8 +99,13 @@ while running:
                     item.prop) + ' HP' + BColors.END_C)
 
             elif item.kind == 'elixir':
-                player.mp = player.max_mp
-                player.hp = player.max_hp
+                if item.name == 'MegaElixir':
+                    for play in players:
+                        play.mp = play.max_mp
+                        play.hp = play.max_hp
+                else:
+                    player.mp = player.max_mp
+                    player.hp = player.max_hp
                 print(BColors.OK_GREEN + '\n' + item.name + ' fully restores HP/MP' + BColors.END_C)
 
             elif item.kind == "attack":
@@ -114,7 +119,7 @@ while running:
     print('Enemy attack for ', enemy_dmg, ' points of damage.')
 
     print("-" * 60)
-    print('Enemy HP: ', BColors.FAIL, enemy.get_hp(), '/', enemy.get_max_hp(), BColors.END_C)
+    enemy.get_enemy_stats()
     print("-" * 60)
 
     if enemy.get_hp() == 0:

@@ -114,3 +114,33 @@ class Person:
 
         print(
             BColors.BOLD + name_section + " : " + current_hp + BColors.OK_GREEN + " |" + hp_bar + "| " + BColors.END_C + BColors.BOLD + current_mp + BColors.OK_BLUE + " |" + mp_bar + "|" + BColors.END_C)
+
+    def get_enemy_stats(self):
+        max_bar_tics = 50
+        hp_bar = ''
+        hp_bar_ticks = self.hp / self.max_hp * 100 / 2
+
+        while hp_bar_ticks > 0:
+            hp_bar += "█"
+            hp_bar_ticks -= 1
+
+        while len(hp_bar) < max_bar_tics:
+            hp_bar += ' '
+
+        hp_quantity = str(self.hp) + "/" + str(self.max_hp)
+        current_hp = ""
+        if len(hp_quantity) < 10:
+            decrease = 10 - len(hp_quantity)
+
+            current_hp = decrease * " " + hp_quantity
+
+        if len(self.name) < 10:
+            decrease = 10 - len(self.name)
+            name_section = self.name + decrease * " "
+        elif len(self.name) > 10:
+            name_section = self.name[0:7] + "..."
+        else:
+            name_section = self.name
+
+        print(
+            BColors.BOLD + name_section + " : " + current_hp + BColors.FAIL + " |" + hp_bar + "| " + BColors.END_C)
