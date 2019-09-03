@@ -2,6 +2,7 @@ from classes.colors import BColors
 from classes.character import Person
 from classes.magic import Spell
 from classes.inventory import Item
+import random
 
 # Create Black Magic (offence)
 fire = Spell("Fire", 10, 100, "black")
@@ -115,8 +116,9 @@ while running:
 
     enemy_choice = 1
     enemy_dmg = enemy.generate_damage()
-    player1.take_damage(int(enemy_dmg))
-    print('Enemy attack for ', enemy_dmg, ' points of damage.')
+    enemy_target = random.randrange(0, len(players))
+    players[enemy_target].take_damage(int(enemy_dmg))
+    print('Enemy attack ' + players[enemy_target].name + ' for ', enemy_dmg, ' points of damage.')
 
     print("-" * 60)
     enemy.get_enemy_stats()
