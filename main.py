@@ -63,7 +63,11 @@ while running:
             dmg = player.generate_damage()
             enemy = player.choose_target(enemies)
             enemies[enemy].take_damage(int(dmg))
-            print('\nYou attack' + enemies[enemy].name + ' for ' + str(dmg) + ' points of damage.')
+            print('\nYou attacked' + enemies[enemy].name + ' for ' + str(dmg) + ' points of damage.')
+
+            if enemies[enemy].get_hp() == 0:
+                print(enemies[enemy], ' has died.')
+                del enemies[enemy]
 
         elif index == 1:
             player.choose_magic()
@@ -90,6 +94,10 @@ while running:
                 print(
                     BColors.OK_BLUE + " \n" + spell.name + " deals " + str(magic_dmg) + " damage points of magic, to " +
                     enemies[enemy].name + BColors.END_C)
+
+                if enemies[enemy].get_hp() == 0:
+                    print(enemies[enemy], ' has died.')
+                    del enemies[enemy]
         elif index == 2:
             player.choose_items()
             item_choice = int(input('Choice item: ')) - 1
@@ -117,6 +125,7 @@ while running:
                 else:
                     player.mp = player.max_mp
                     player.hp = player.max_hp
+
                 print(BColors.OK_GREEN + '\n' + item.name + ' fully restores HP/MP' + BColors.END_C)
 
             elif item.kind == "attack":
@@ -124,6 +133,9 @@ while running:
                 enemies[enemy].take_damage(item.prop)
                 print(BColors.FAIL + '\n' + item.name + ' enemy ' + enemies[enemy].name + ' takes ',
                       str(item.prop) + ' damage points.' + BColors.END_C)
+                if enemies[enemy].get_hp() == 0:
+                    print(enemies[enemy], ' has died.')
+                    del enemies[enemy]
 
     enemy_choice = 1
     enemy_dmg = enemies[0].generate_damage()
@@ -131,10 +143,20 @@ while running:
     players[enemy_target].take_damage(int(enemy_dmg))
     print('Enemy attack ' + players[enemy_target].name + ' for ', enemy_dmg, ' points of damage.')
 
-    if enemy.get_hp() == 0:
+    defeated_enemies = 0
+    defeated_players = 0
+
+    for enemy in enemies:
+        if enemy.get_hp() == 0:
+            defeated_enemies += 1
+    for player in players:
+        if player.get_hp() == 0:
+            defeated_players += 1
+
+    if defeated_enemies == 3:
         print(BColors.OK_GREEN + 'You win!' + BColors.END_C)
         running = False
 
-    elif player.get_hp() == 0:
+    elif defeated_players == 3:
         print(BColors.FAIL + 'You enemy has defeat you!' + BColors.END_C)
         running = False
