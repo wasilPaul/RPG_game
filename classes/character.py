@@ -69,6 +69,15 @@ class Person:
                   item['item'].description + " (x " + str(item['quantity']) + ")")
             i += 1
 
+    def choose_target(self, enemies):
+        i = 1
+        print('\n' + BColors.FAIL + BColors.BOLD + 'TARGET: ' + BColors.END_C)
+        for enemy in enemies:
+            print(str(i) + '. ' + enemy.name)
+            i += 1
+        choice = int(input('Choice target: ')) - 1
+        return choice
+
     def get_stats(self):
         hp_bar_length = 25
         hp_bar = ''
