@@ -154,3 +154,14 @@ class Person:
 
         print(
             BColors.BOLD + name_section + " : " + current_hp + BColors.FAIL + " |" + hp_bar + "| " + BColors.END_C)
+
+    def choose_enemy_spell(self):
+        magic_choice = random.randrange(0, len(self.magic))
+        spell = self.magic[magic_choice]
+        magic_dmg = spell.generate_damage()
+        pct = self.hp / self.max_hp * 100
+
+        if self.mp < spell.cost or spell.type == 'white' and pct > 50:
+            self.choose_enemy_spell()
+        else:
+            return spell, magic_dmg
